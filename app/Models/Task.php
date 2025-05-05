@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Task extends Model
 {
+    use HasUuids;
+
     protected $fillable = [
         'project_id',
         'name',
@@ -15,4 +17,5 @@ class Task extends Model
         'schedule_from',
         'schedule_to',
     ];
+    protected $primaryKey = 'uuid';
 }
