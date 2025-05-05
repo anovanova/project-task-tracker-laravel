@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { LayoutGrid } from 'lucide-react';
+import { LayoutGrid, Plus } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -34,6 +34,12 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter>
+                <SidebarMenuButton size="lg" className='bg-primary text-primary-foreground flex justify-center transition duration-200' asChild>
+                    <Link href="/add-project" className='font-bold' prefetch>
+                        <Plus/>
+                        Add Project
+                    </Link>
+                </SidebarMenuButton>
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
