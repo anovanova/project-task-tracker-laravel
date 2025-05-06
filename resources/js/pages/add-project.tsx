@@ -34,9 +34,8 @@ export default function AddProject() {
 
     const handleAddProject = async (data: z.infer<typeof formSchema>) => {
         router.post('add-project', data, {
-            onSuccess: () => {toast.success('Succesfully added a project!')},
+            onSuccess: () => {toast.success('Succesfully added a project!'); router.reload({ only: ['sidebarData'] })},
           })
-        console.log(data)
       }
 
     return (
