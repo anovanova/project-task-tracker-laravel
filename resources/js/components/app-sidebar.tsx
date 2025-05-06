@@ -1,20 +1,23 @@
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { LayoutGrid, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import AppLogo from './app-logo';
-
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
-    },
-];
+import { usePage } from '@inertiajs/react'
+type SideNavData = [{
+    uuid: string
+    user_id: number
+    name: string
+    description: string
+    status: string
+    updated_at: string
+    created_at: string
+}]
 
 export function AppSidebar() {
+    const sideNavData = usePage().props.sidebarData as SideNavData
+    const navItems = sideNavData.map((item) => {return {title: item.name, href: `/project/${item.uuid}`}})
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -30,7 +33,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={navItems} />
             </SidebarContent>
 
             <SidebarFooter>
