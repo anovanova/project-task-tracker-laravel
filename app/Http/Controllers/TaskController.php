@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Project;
-use App\Models\Task;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Task;
 
-class ProjectController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $id)
     {
-        return Project::where('user_id', Auth::id())->get();
+        return Inertia::render('add-task', ['projectId' => $id]);
     }
 
     /**
@@ -32,17 +30,24 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Task::create([
+            'project_id' => $request->projectId,
+            'name' => $request->taskTitle,
+            'description' => $request->taskDescription,
+            'status' => 'Ongoing',
+            'schedule_from' => $request->schedFrom,
+            'schedule_to' => $request->schedTo,
+        ]);
+
+        return Inertia::render('add-task');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
+    public function show(string $id)
     {
-        $tasks = Task::where('project_id', $id)->get();
-
-        return Inertia::render('tasks', ['tasks'=>$tasks]);
+        //
     }
 
     /**
