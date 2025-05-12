@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProjectController extends Controller
 {
@@ -35,9 +38,11 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): Response
     {
-        //
+        $tasks = Task::where('project_id', $id)->get();
+
+        return Inertia::render('tasks', ['tasks'=>$tasks]);
     }
 
     /**
