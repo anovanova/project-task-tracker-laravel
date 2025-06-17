@@ -28,11 +28,26 @@ interface Tasks {
 export default function Tasks({tasks}: Tasks) {
     console.log(tasks)
 
+    const tasksElement = () => {
+        return tasks.map((item) =>
+            <Link href={``} className='font-bold flex gap-2 bg-primary p-4 px-8 text-primary-foreground rounded-md' prefetch>
+                {item.name}
+            </Link>
+        )
+    }
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tasks" />
             {
-                tasks.length === 0 ? <div className='h-full w-full grid place-content-center'><h1 className='text-xl text-muted-foreground'>No available tasks added</h1></div> : <div></div>
+                tasks.length === 0 ?
+                <div className='h-full w-full grid place-content-center'>
+                    <h1 className='text-xl text-muted-foreground'>No available tasks added</h1>
+                </div>
+                :
+                <div>
+                    {tasksElement()}
+                </div>
             }
             <div className='absolute bottom-4 right-4'>
                 <Link href={`/project/${route().params.id}/add-task`} className='font-bold flex gap-2 bg-primary p-4 px-8 text-primary-foreground rounded-md' prefetch>
