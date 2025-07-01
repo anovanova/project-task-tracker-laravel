@@ -47,7 +47,8 @@ class TaskController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $task = Task::find($id);
+        return Inertia::render('task', ['task'=> $task]);
     }
 
     /**
