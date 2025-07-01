@@ -27,6 +27,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('project/{id}/add-task', [TaskController::class, 'index'])->name('add-task-request');
 
     Route::post('project/{id}/add-project-task', [TaskController::class, 'store'])->name('add-project-task');
+
+    Route::get('task/{id}', [TaskController::class, 'show'])
+    ->name('task');
 });
 
 require __DIR__.'/settings.php';
