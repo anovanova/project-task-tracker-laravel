@@ -8,6 +8,8 @@ use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Carbon\Carbon;
+use App\Casts\Json;
 
 class ProjectController extends Controller
 {
@@ -40,7 +42,9 @@ class ProjectController extends Controller
      */
     public function show(string $id): Response
     {
-        $tasks = Task::where('project_id', $id)->get();
+        $tasks = Task::where('project_id', $id)->get()->groupBy(function($date) {
+            return Array(Carbon::parse($date->created_at)->format('W'));
+        })->values();
 
         return Inertia::render('tasks', ['tasks'=>$tasks]);
     }
