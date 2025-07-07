@@ -27,35 +27,36 @@ interface Task {
 export default function Tasks({ task }: Task) {
     const info = [
         {
-            name: 'Title',
+            name: 'Title:',
             value: task.name,
         },
         {
-            name: 'Description',
+            name: 'Description:',
             value: task.description,
         },
         {
-            name: 'Status',
+            name: 'Status:',
             value: task.status,
         },
         {
-            name: 'Schedule From',
+            name: 'Schedule From:',
             value: new Date(task.schedule_from).toString(),
         },
         {
-            name: 'Schedule To',
+            name: 'Schedule To:',
             value: new Date(task.schedule_to).toString(),
         },
     ];
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tasks" />
-            <div>
-                <div>
+            <div className="grid h-full w-full place-content-center">
+                <div className="h-auto w-full rounded-md bg-neutral-100 p-4 shadow-sm">
+                    <h1 className="my-2 text-center text-xl font-bold text-neutral-600">Task Information</h1>
                     {info.map((item, index) => {
                         return (
                             <div key={index}>
-                                <h2>{item.name}</h2>
+                                <h2 className="text-neutral-600">{item.name}</h2>
                                 <p className="mb-2 p-2 font-bold">{item.value}</p>
                             </div>
                         );
