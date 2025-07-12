@@ -16,6 +16,7 @@ interface Task {
     name: string;
     project_id: string;
     status: string;
+    priority: string;
     uuid: string;
     schedule_from: Date;
     schedule_to: Date;
@@ -25,20 +26,30 @@ interface Tasks {
 }
 
 export default function Tasks({ tasks }: Tasks) {
-    console.log(tasks);
     const tasksElement = () =>
         tasks.map((item) => (
-            <div className="flex flex-auto flex-col gap-1 rounded-md bg-zinc-100 p-4 shadow">
-                {item.map((item) => (
-                    <Link
-                        key={item.uuid}
-                        href={`/task/${item.uuid}`}
-                        className="bg-primary text-primary-foreground flex gap-2 rounded-md p-4 px-8 font-bold"
-                        prefetch
-                    >
-                        <p className="w-full text-center">{item.name}</p>
-                    </Link>
-                ))}
+            <div className="flex flex-auto flex-col gap-1 rounded-md bg-zinc-50 p-4 shadow-md">
+                {item.map((item) => {
+                    const priorityColor = () => {
+                        if (item.priority === 'Low') {
+                            return 'bg-green-100 text-green-700';
+                        } else if (item.priority === 'Medium') {
+                            return 'bg-amber-100 text-amber-700';
+                        }
+                        return 'bg-red-100 text-red-700';
+                    };
+
+                    return (
+                        <Link
+                            key={item.uuid}
+                            href={`/task/${item.uuid}`}
+                            className={`${priorityColor()} flex gap-2 rounded-md p-4 px-8 font-bold`}
+                            prefetch
+                        >
+                            <p className="w-full text-center">{item.name}</p>
+                        </Link>
+                    );
+                })}
             </div>
         ));
     return (
