@@ -35,6 +35,7 @@ class TaskController extends Controller
             'name' => $request->taskTitle,
             'description' => $request->taskDescription,
             'status' => 'Ongoing',
+            'priority' => $request->taskPriority,
             'schedule_from' => $request->schedFrom,
             'schedule_to' => $request->schedTo,
         ]);
