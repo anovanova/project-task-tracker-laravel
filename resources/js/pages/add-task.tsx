@@ -3,6 +3,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const formSchema = z.object({
     taskTitle: z.string().min(1, 'Title is required'),
     taskDescription: z.string().min(1, 'Description is required'),
+    taskPriority: z.string().min(1, 'Priority is required'),
     schedFrom: z.date().optional(),
     schedTo: z.date().optional(),
 });
@@ -39,6 +41,7 @@ export default function AddTask({ projectId }: ProjectId) {
         defaultValues: {
             taskTitle: '',
             taskDescription: '',
+            taskPriority: '',
             schedFrom: new Date(),
             schedTo: new Date(),
         },
@@ -85,6 +88,28 @@ export default function AddTask({ projectId }: ProjectId) {
                                                 <FormControl>
                                                     <Textarea placeholder="Description" {...field} />
                                                 </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="taskPriority"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Task Priority</FormLabel>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                    <FormControl>
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Select task priority" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        <SelectItem value="Low">Low</SelectItem>
+                                                        <SelectItem value="Medium">Medium</SelectItem>
+                                                        <SelectItem value="High">High</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
