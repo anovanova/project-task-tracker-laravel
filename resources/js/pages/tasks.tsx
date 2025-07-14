@@ -22,14 +22,23 @@ interface Task {
     schedule_to: Date;
 }
 interface Tasks {
-    tasks: [Task][];
+    tasks: {
+        [key: string]: [Task];
+    };
 }
 
 export default function Tasks({ tasks }: Tasks) {
+    console.log(tasks);
     const tasksElement = () =>
-        tasks.map((item) => (
+        Object.keys(tasks).map((item) => (
             <div className="flex flex-auto flex-col gap-1 rounded-md bg-zinc-50 p-4 shadow-md">
-                {item.map((item) => {
+                <div className="flex justify-between p-4">
+                    <h3 className="font-semibold text-zinc-700">Tasks for the week</h3>
+                    <h3 className="text-zinc-700">
+                        Week Date Range: <span className="font-semibold">{item}</span>
+                    </h3>
+                </div>
+                {tasks[item].map((item) => {
                     const priorityColor = () => {
                         if (item.priority === 'Low') {
                             return 'bg-green-100 text-green-700';

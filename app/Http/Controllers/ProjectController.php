@@ -43,9 +43,12 @@ class ProjectController extends Controller
     public function show(string $id): Response
     {
         $tasks = Task::where('project_id', $id)->get()->groupBy(function($date) {
-            return Array(Carbon::parse($date->created_at)->format('W'));
-        })->values();
+            $groupedData = Carbon::parse($date->created_at);
+            $start = $groupedData->startOfWeek()->format('d-m-Y');
+            $end = $groupedData->endOfWeek()->format('d-m-Y');
 
+            return "{$start} - {$end}";
+        });
         return Inertia::render('tasks', ['tasks'=>$tasks]);
     }
 
