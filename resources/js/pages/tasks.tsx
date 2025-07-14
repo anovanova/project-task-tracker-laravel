@@ -64,7 +64,7 @@ export default function Tasks({ tasks }: Tasks) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tasks" />
-            {tasks.length === 0 ? (
+            {Object.keys(tasks).length === 0 ? (
                 <div className="grid h-full w-full place-content-center">
                     <h1 className="text-muted-foreground text-xl">No available tasks added</h1>
                 </div>
